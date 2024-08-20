@@ -1,0 +1,140 @@
+CREATE DATABASE SpassoCasaERP
+USE SpassoCasaERP
+
+CREATE TABLE Cliente ( 
+
+    id INT  NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    nome VARCHAR(255) NOT NULL, 
+
+    endereco VARCHAR(255), 
+
+    telefone VARCHAR(20), 
+
+    email VARCHAR(255)
+
+    
+
+); 
+
+ 
+
+CREATE TABLE CategoriaProduto ( 
+
+    id INT  NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    nome VARCHAR(255) NOT NULL 
+
+); 
+
+ 
+
+CREATE TABLE Fornecedor ( 
+
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+
+    nome VARCHAR(255) NOT NULL, 
+
+    endereco VARCHAR(255) NOT NULL, 
+
+    telefone VARCHAR(20) NOT NULL, 
+
+    email VARCHAR(255) NOT NULL
+
+); 
+
+ 
+
+CREATE TABLE Produto ( 
+
+    id INT  NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    nome VARCHAR(255) NOT NULL, 
+
+    descricao TEXT, 
+
+    preco DECIMAL(10, 2), 
+
+    estoque INT NOT NULL, 
+
+    idCategoriaProduto INT, 
+
+    idFornecedor INT, 
+
+    FOREIGN KEY (idCategoriaProduto) REFERENCES CategoriaProduto(id), 
+
+    FOREIGN KEY (idFornecedor) REFERENCES Fornecedor(id) 
+
+); 
+
+ 
+
+CREATE TABLE Compra ( 
+
+    id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    dataCompra DATE, 
+
+    total DECIMAL(10, 2), 
+
+    idCliente INT, 
+
+    FOREIGN KEY (idCliente) REFERENCES Cliente(id) 
+
+); 
+
+ 
+
+CREATE TABLE ItemCompra ( 
+
+    id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    idProduto INT, 
+
+    quantidade INT, 
+
+    precoUnitario DECIMAL(10, 2), 
+
+    idCompra INT, 
+
+    FOREIGN KEY (idProduto) REFERENCES Produto(id), 
+
+    FOREIGN KEY (idCompra) REFERENCES Compra(id) 
+
+); 
+
+ 
+
+CREATE TABLE Venda ( 
+
+    id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    dataVenda DATE, 
+
+    total DECIMAL(10, 2), 
+
+    idCliente INT, 
+
+    FOREIGN KEY (idCliente) REFERENCES Cliente(id) 
+
+); 
+
+ 
+
+CREATE TABLE ItemVenda ( 
+
+    id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT, 
+
+    idProduto INT, 
+
+    quantidade INT, 
+
+    precoUnitario DECIMAL(10, 2), 
+
+    idVenda INT, 
+
+    FOREIGN KEY (idProduto) REFERENCES Produto(id), 
+
+    FOREIGN KEY (idVenda) REFERENCES Venda(id) 
+
+); 
